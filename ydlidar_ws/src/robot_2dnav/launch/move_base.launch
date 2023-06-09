@@ -1,0 +1,17 @@
+<launch>
+	<master auto="start"/>
+	<!-- i shouldnt have the map server here, so just check obsidian if it turns out i need it-->
+
+	<!-- Run AMCL, make sure its diff for differential drive -->
+	<include file="$(find amcl)/examples/amcl_diff.launch"/>
+
+	<node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+		<rosparam file="$(find robot_2dnav)/costmap_common_params.yaml" command="load" ns="global_costmap"/>
+		<rosparam file="$(find robot_2dnav)/costmap_common_params.yaml" command="load" ns="local_costmap"/>
+
+		<rosparam file="$(find robot_2dnav)/global_costmap_params.yaml" command="load"/>
+		<rosparam file="$(find robot_2dnav)/local_costmap_params.yaml" command="load"/>
+
+		<rosparam file="$(find robot_2dnav)/base_local_planner_params.yaml" command="load"/>
+	</node>
+</launch>

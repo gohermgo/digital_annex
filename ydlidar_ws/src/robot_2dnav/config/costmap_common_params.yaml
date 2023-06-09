@@ -1,0 +1,13 @@
+obstacle_range: 7.72
+raytrace_range: 8.0
+#footprint:[[]]
+# let us just use radius for now, I will asume that its hardly more than like 0.1 m
+robot_radius: 0.6
+# i guess this should be the same, maybe change these values later on
+inflation_radius: 0.6
+
+observation_sources: laser_scan_sensor point_cloud_sensor
+
+laser_scan_sensor: {sensor_frame: laser_frame, data_type: LaserScan, topic: scan, marking: true, clearing: true}
+
+point_cloud_sensor: {sensor_frame: laser_frame, data_type: PointCloud, topic: point_cloud, marking: true, clearing: true}

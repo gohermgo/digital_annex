@@ -1,0 +1,25 @@
+<launch>
+	<!-- this line should make sure the correct lidar node launches -->
+	<!-- relevant topics are scan and point_cloud -->
+	<include file="$(find ydlidar_ros_driver)/launch/X2.launch"/>
+
+	<!-- base link to base laser tf is handled in ydlidar package,static-->
+	<!-- named base_link_to_laser4, seems to be inherent to the sensor-->
+	<!-- FILL IN VALUES HERE -->
+	<!-- this will be from the base to the footprint of the laser -->
+	<!-- the laser takes measurements 2.0 z above that again -->
+	<!-- and tf will handle this, thats its purpose -->
+	<node pkg="tf" type="static_transform_publisher" name="base_link_to_laser_base" args="-0.1 0.0 0.3 0.0 0.0 0.0" /base_link /base_footprint 40" />
+
+	<!-- we need to make a tf config for odometry too -->
+	<!-- although that might be in arduino as well -->
+	<!-- there is a tf broadcaster there after all -->
+	<!-- basically its zero i guess, since the odometry -->
+	<!-- and base link are at the same places in space -->
+
+	<!-- next we should somehow add the odometry, however that is arduino based -->
+	<node pkg="rosserial_python" type="serial_node.py" name="base_controller">
+		<param name="port" value="/dev/tty0"/>
+		<param name="baud" value="500000"/>
+	</node>
+</launch>
